@@ -130,13 +130,13 @@ function Footer() {
       <Row className="bottom-bar">
         <Col lg={6} sm={24}>
           <div className="translate-button">
-            <Button ghost size="small" >
+            {/* <Button ghost size="small" >
               English
-            </Button>
+            </Button> */}
           </div>
         </Col>
         <Col lg={18} sm={24}>
-          <span
+          {/* <span
             style={{
               lineHeight: '16px',
               paddingRight: 12,
@@ -160,9 +160,9 @@ function Footer() {
             >
               权益保障承诺书
             </a>
-          </span>
-          <span style={{ marginRight: 12 }}>ICP 证浙 B2-2-100257</span>
-          <span style={{ marginRight: 12 }}>Copyright © 蚂蚁金融服务集团</span>
+          </span> */}
+          {/* <span style={{ marginRight: 12 }}>ICP 证浙 B2-2-100257</span> */}
+          <span style={{ marginRight: 12 }}>Copyright © 2021 url-previewer.com</span>
         </Col>
       </Row>
     </footer>

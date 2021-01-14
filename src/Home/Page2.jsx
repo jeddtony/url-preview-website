@@ -1,9 +1,27 @@
-import React from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { OverPack } from 'rc-scroll-anim';
 import QueueAnim from 'rc-queue-anim';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
+import axios from 'axios';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 function Page2() {
+  const [inputData, setInputData] = useState("");
+  const [currentText, setCurrentText] = useState("Copy");
+  const inputEl = useRef(null);
+  const parsedData = useFetchDataComponent({input: inputData});
+
+  const handleInputChange = (e) => {
+    setInputData(e.target.value);
+  }
+  
+const handleCopyText = () => {
+  setCurrentText("Copied");
+  setTimeout(() => {
+    setCurrentText("Copy");
+  }, 3000);
+}
+
   return (
     <div className="home-page page2">
       <div className="home-page-wrapper">
@@ -20,7 +38,7 @@ function Page2() {
               <div>
                 {/* $ <span>git clone</span>  */}
               </div>
-              <div>http://api.linkpreview.net/?key=123456&q=https://www.google.com</div>
+              <div>http://api.url-previewer.com/?q=https://www.google.com</div>
              
             </div>
 
@@ -51,7 +69,54 @@ function Page2() {
                 <Button type="primary">下载 Pro</Button>
               </a>
             </div> */}
+
+              <h2> <span>Try It</span></h2>
+
+              <div key="code1" className="home-code">
+              <div>
+                {/* $ <span>git clone</span>  */}
+              </div>
+              <div>
+              https://youtube.com
+              <CopyToClipboard text={"https://youtube.com"} 
+              onCopy={() => handleCopyText()}>
+              <span  size="small" style={{float: "right", cursor: "pointer", color: "#0b3abe"}} > {currentText}</span>
+              </CopyToClipboard>
+              </div>
+              
+              
+            </div>
+            
+            <div key="code2" className="home-code">
+              <div>
+                Paste url here
+              </div>
+              <div>
+              <Input style={{minHeight: "50px", fontSize: "20px"}} onChange={(e) => handleInputChange(e)}/>
+              </div>
+            </div>
+            
+
+            <div key="code2" className="home-code">
+              <div>
+                {/* $ <span>git clone</span>  */}
+              </div>
+              <div style={{minHeight: "100px"}}> 
+              {`{`}
+              {Object.keys(parsedData).map(dat => (
+                <div>
+                {`"${dat}"`} : {`"${parsedData[dat]}"`}
+                </div>
+              
+              ))}
+
+            {`}`}
+              </div>
+            </div>
+
           </QueueAnim>
+
+          
         
       </div>
     </div>
@@ -59,3 +124,42 @@ function Page2() {
 }
 
 export default Page2;
+
+
+function useFetchDataComponent ({input}) {
+
+  let containsFullStop = input.indexOf(".");
+  const [dataFetched, setDataFetched] = useState({});
+
+  // if(!(containsFullStop > 0 && (input.length - containsFullStop )> 3)){
+  //   return (
+  //     <>
+  //     </>
+  //   )
+  // }
+
+  useEffect(() => {
+    // effect
+   
+
+    const fetchData = async() => {
+      // let results = await axios.get(`api.url-previewer.com?q=${input}`);
+      let results = await axios.get(`http://localhost:4001?q=${input}`);
+      let status = results.status;
+
+      if(status == 200) {
+        let data = results.data;
+        console.log(data);
+        setDataFetched(data);
+      }
+    }
+
+    if(containsFullStop > 0 && (input.length - containsFullStop )> 3){
+      fetchData();
+    }
+     return () => [dataFetched]
+  }, [input])
+
+
+  return dataFetched;
+}

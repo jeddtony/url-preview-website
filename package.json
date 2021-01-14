@@ -5,12 +5,14 @@
   },
   "dependencies": {
     "antd": "^2.13.10",
+    "axios": "^0.21.1",
     "enquire-js": "^0.1.0",
     "prop-types": "^15.6.0",
     "rc-queue-anim": "^1.4.0",
     "rc-scroll-anim": "^2.0.2",
     "rc-tween-one": "^1.5.5",
     "react": "^16.1.1",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.1.1",
     "react-github-button": "^0.1.11"
