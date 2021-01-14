@@ -143,8 +143,8 @@ function useFetchDataComponent ({input}) {
    
 
     const fetchData = async() => {
-      // let results = await axios.get(`api.url-previewer.com?q=${input}`);
-      let results = await axios.get(`http://localhost:4001?q=${input}`);
+      let results = await axios.get(`http://api.url-previewer.com?q=${input}`);
+      // let results = await axios.get(`http://localhost:4001?q=${input}`);
       let status = results.status;
 
       if(status == 200) {
